@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration monitorInterval="10">
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss}|T%T|%p|%c{2}|%M|%L|%m%n|" />
+		</Console>
+		<RollingRandomAccessFile name="RollingRandomAccessFile"
+			fileName="logs/MobileExperian.log" filePattern="logs/$${date:yyyy-MM}/pruebas-mob-%d{MM-dd-yyyy}-%i.log"
+			bufferSize="512" immediateFlush="false" ignoreExceptions="false">
+			<PatternLayout pattern="|%d{dd-MM-yyyy HH:mm:ss}|T%T|%p| %c{2} |%M|%L|%m%n|" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="31" />
+		</RollingRandomAccessFile>
+	</appenders>
+	<loggers>
+		<logger name="com.stefanini.Test-automat" level="INFO"
+			includeLocation="true" />
+		<root level="INFO" includeLocation="true">
+			<!-- Elimine el comentario para ver el log en la consola. -->
+			<appender-ref ref="Console" />
+			<appender-ref ref="RollingRandomAccessFile" />
+			<!-- Configuracion para ver el log inmediatamento se genera. No usar en 
+				produccion <appender-ref ref="RollingFile"/> -->
+		</root>
+	</loggers>
+</configuration>
